@@ -11,7 +11,7 @@ public class JsonPathHelper {
 		return jsonContext.read(jsonPath, type);
 	}
 	
-	public static <T> T evalJsonPathWithPredicates(String jsonData, String jsonPath, Class<T> type,  Predicate filters) {
+	public static <T> T evalJsonPathWithPredicates(String jsonData, String jsonPath, Class<T> type,  Predicate ... filters) {
 		DocumentContext jsonContext = JsonPath.parse(jsonData);
 		return jsonContext.read(jsonPath, type, filters);
 	}

@@ -13,7 +13,21 @@ import java.util.Map;
 import com.jayway.jsonpath.Filter;
 import com.jayway.jsonpath.Predicate;
 
-public class JsonPathExamples {
+
+
+interface TypePredicate {
+	Predicate typeCriteria(String type);
+}
+
+interface PricePredicate{
+	Predicate priceCriteria(Float price);
+}
+
+
+public class JsonPathExamples implements TypePredicate, PricePredicate {
+	
+
+	
 	public static void main(String[] args) {
 		String jsonData = readJson();
 
@@ -32,10 +46,10 @@ public class JsonPathExamples {
 //		Filtered list - filter part of expression - OR
 		evalJsonPath(jsonData, "$.movies[?(@.type==Drama || @.price<101)].title", List.class).stream().forEach(System.out::println);
 		outputSeparator();
-
+	
 //		Filtered list with Predicates
-		Predicate pricePredicate = context -> Float.valueOf(context.item(Map.class).get("price").toString()) > 101;
-		Predicate typePredicate = context -> context.item(Map.class).get("type").toString().equals("Action");
+		Predicate pricePredicate = new JsonPathExamples().priceCriteria(101f);
+		Predicate typePredicate = new JsonPathExamples().typeCriteria("Action");
 
 		List<Predicate> predicates = new ArrayList<Predicate>(Arrays.asList(typePredicate, pricePredicate));
 
@@ -43,4 +57,15 @@ public class JsonPathExamples {
 		outputSeparator();
 		
 	}
+
+	@Override
+	public Predicate priceCriteria(Float price) {
+		return context -> Float.valueOf(context.item(Map.class).get("price").toString()) > price;
+	}
+
+	@Override
+	public Predicate typeCriteria(String type) {
+		return context -> context.item(Map.class).get("type").toString().equals(type);
+	}
+
 }
