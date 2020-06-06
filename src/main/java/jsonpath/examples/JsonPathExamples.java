@@ -25,8 +25,12 @@ public class JsonPathExamples {
 		evalJsonPath(jsonData, "$.movies", List.class).stream().forEach(System.out::println);
 		outputSeparator();
 
-//		Filtered list - filter part of expression
+//		Filtered list - filter part of expression - AND
 		evalJsonPath(jsonData, "$.movies[?(@.type==Action && @.price>101)].title", List.class).stream().forEach(System.out::println);
+		outputSeparator();
+		
+//		Filtered list - filter part of expression - OR
+		evalJsonPath(jsonData, "$.movies[?(@.type==Drama || @.price<101)].title", List.class).stream().forEach(System.out::println);
 		outputSeparator();
 
 //		Filtered list with Predicates
