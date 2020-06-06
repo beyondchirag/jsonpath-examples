@@ -1,0 +1,23 @@
+{
+	"label": "my fav",
+	"movies": [
+		{
+			"@year": "2000",
+			"title": "Gladiator",
+			"type": "Action",
+			"price": 100
+		},
+		{
+			"@year": "2005",
+			"title": "King Kong",
+			"type": "Action",
+			"price": 150
+		},
+		{
+			"@year": "1995",
+			"title": "Seven",
+			"type": "Drama",
+			"price": 50
+		}
+	]
+}
